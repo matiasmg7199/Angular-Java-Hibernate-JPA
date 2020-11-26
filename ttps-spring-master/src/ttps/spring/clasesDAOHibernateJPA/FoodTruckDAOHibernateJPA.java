@@ -2,8 +2,8 @@ package ttps.spring.clasesDAOHibernateJPA;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+//import javax.persistence.EntityManager;
+//import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
@@ -20,8 +20,8 @@ public class FoodTruckDAOHibernateJPA extends GenericDAOHibernateJPA<FoodTruck> 
 
 	@Override
 	public List<FoodTruck> encontrarTodosParaUsuarioID(long usuarioID) {
-		EntityManagerFactory emf = new EMFactory().getEMF();
-		EntityManager em = emf.createEntityManager();
+//		EntityManagerFactory emf = new EMFactory().getEMF();
+//		EntityManager em = emf.createEntityManager();
 		
 		String sql = " SELECT ft "
 				 	+ " FROM FoodTruck ft"
@@ -29,7 +29,7 @@ public class FoodTruckDAOHibernateJPA extends GenericDAOHibernateJPA<FoodTruck> 
 				 	+ " 	INNER JOIN Usuario u ON (u.id = ft.foodtrucker)"
 		 			+ " WHERE u.id = :usuarioID ";
 		 
-		Query consulta = EMFactory.getEMF().createEntityManager().createQuery(sql);
+		Query consulta = this.getEntityManager().createQuery(sql);
 		consulta.setParameter("usuarioID", usuarioID);		 
 		List<FoodTruck> resultado = consulta.getResultList();	 
 		return resultado;
@@ -37,8 +37,8 @@ public class FoodTruckDAOHibernateJPA extends GenericDAOHibernateJPA<FoodTruck> 
 	
 	@Override
 	public FoodTruck encontrarPorNombre(String nombre) {
-		EntityManagerFactory emf = new EMFactory().getEMF();
-		EntityManager em = emf.createEntityManager();
+//		EntityManagerFactory emf = new EMFactory().getEMF();
+//		EntityManager em = emf.createEntityManager();
 			
 		String sql = " SELECT ft "
 					+ " FROM FoodTruck ft"
@@ -48,6 +48,14 @@ public class FoodTruckDAOHibernateJPA extends GenericDAOHibernateJPA<FoodTruck> 
 		 consulta.setParameter("nombre", nombre);
 		 FoodTruck resultado = (FoodTruck) consulta.getSingleResult();
 		 return resultado;
+	}
+	
+	@Override
+	public List<FoodTruck> recuperarTodos() {
+		String sql = " SELECT f "
+	 				+ " FROM FoodTruck as f ";		 
+	 Query consulta = getEntityManager().createQuery(sql);
+	 return consulta.getResultList();
 	}
 
 	

@@ -7,6 +7,7 @@ public interface FoodTruckDAO extends GenericDAO<FoodTruck> {
 
 	public List<FoodTruck> encontrarTodosParaUsuarioID(long usuarioID);
 	public FoodTruck encontrarPorNombre(String nombre);
+	public List<FoodTruck> recuperarTodos();
 	/*public FoodTrucker devolverFoodTrucker();
 	public List<TipoDeServicio> devolverTipos();
 	public List<Contratacion> devolverSolicitudes();*/

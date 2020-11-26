@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table (name="FoodTrucks")
 public class FoodTruck {
@@ -22,7 +24,7 @@ public class FoodTruck {
 	@JoinColumn(name = "id_Zona", referencedColumnName = "id")
 	private Zona zona;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	 @JoinTable(
 	            name = "FoodTrucks_TipoComidas", 
 	            joinColumns = { @JoinColumn(name = "foodtrucks_id") }, 
@@ -37,6 +39,7 @@ public class FoodTruck {
 	private String redesSociales;
 
 	//private List<String> imagenes= new ArrayList<String>();
+	@JsonIgnore
 	@OneToMany(mappedBy = "foodtruck", cascade = CascadeType.ALL)
     private List<Invitacion> invitaciones = new ArrayList<>();
 	
