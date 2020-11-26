@@ -36,6 +36,21 @@ public class UsuarioDAOHibernateJPA extends GenericDAOHibernateJPA<Usuario> impl
 		 return consulta.getResultList();
 	}
 	 
+
+	@Override
+	public Usuario login (String username, String password) {		
+		Usuario resultado = null; 
+		String sql = " SELECT u "
+	 			   + " FROM Usuario as u"
+	 			   + " WHERE u.username = :username AND u.password = :password ";		 
+		Query consulta = getEntityManager().createQuery(sql);
+		consulta.setParameter("username", username);
+		consulta.setParameter("password", password);
+		List <Usuario> result = consulta.getResultList(); 
+		if( !result.isEmpty() ) {
+			 resultado = (Usuario)result.get(0); }
+		 return resultado;
+	}
 	 
 	 
 	 
