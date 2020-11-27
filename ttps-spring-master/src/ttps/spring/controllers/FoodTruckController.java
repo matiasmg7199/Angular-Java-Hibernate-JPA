@@ -154,15 +154,4 @@ public class FoodTruckController {
 		else { return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND); }
 	}
 	
-//	@PostMapping
-//	public ResponseEntity<FoodTrucker> crearFoodTruckers(@RequestBody FoodTrucker ft ){
-//		FoodTrucker exist = fDAO.buscarPorUsername(ft.getNombreUsuario());
-//	    if ( exist != null ) {
-//	    	return new ResponseEntity <FoodTrucker> (ft, HttpStatus.CONFLICT);
-//	    } else {
-//	    	fDAO.persistir(ft);
-//	    	return new ResponseEntity <FoodTrucker> (ft, HttpStatus.CREATED);
-//	    }	
-//	} 
-	
 }

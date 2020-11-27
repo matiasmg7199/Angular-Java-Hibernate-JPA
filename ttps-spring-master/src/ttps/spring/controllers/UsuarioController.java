@@ -3,6 +3,7 @@ package ttps.spring.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,7 @@ public class UsuarioController {
 	public ResponseEntity<Usuario> modificarUsuario(@PathVariable("id") long id, @RequestBody Usuario user) {
 		Usuario u = uDAO.recuperar(id);
 		if(!u.equals(null)) {
+			u.setId(id);
 			if(user.getNombreUsuario() != null) {
 				u.setNombreUsuario(user.getNombreUsuario());
 			}
@@ -70,12 +72,29 @@ public class UsuarioController {
 			if(user.getApellido() != null) {
 				u.setApellido(user.getApellido());
 			}
-			return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+			uDAO.actualizar(u);
+			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
 		}
 		else {
 			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Usuario> eliminarUsuario(@PathVariable("id") long id){
+		//Tomo el id del usuario
+		Usuario u = uDAO.recuperar(id);
+		
+		//Si existe lo borramos, si no, imprimimos error
+		if(!u.equals(null)) {
+			
+			//Si, existe borro y devuelvo http ok 
+			uDAO.borrar(id);
+			return new ResponseEntity<Usuario>(u, HttpStatus.OK);
+		}else {
+			//Si no existe usuario con ese id imprimo http not found
+			return new ResponseEntity<Usuario>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
 }
