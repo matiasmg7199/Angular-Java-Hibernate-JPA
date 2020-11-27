@@ -113,11 +113,24 @@ public class FoodTruck {
 		return comidas;
 	}
 
-
+	
+	
 	//public List<String> getImagenes() {
 	//	return imagenes;
 	//}
 	
+	public void setComidas(List<TipoComida> comidas) {
+		this.comidas = comidas;
+	}
+
+	public FoodTrucker getFoodtrucker() {
+		return foodtrucker;
+	}
+
+	public void setFoodtrucker(FoodTrucker foodtrucker) {
+		this.foodtrucker = foodtrucker;
+	}
+
 	public List<Invitacion> getInvitaciones() {
 		return invitaciones;
 	}
