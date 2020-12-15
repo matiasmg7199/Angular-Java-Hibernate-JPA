@@ -32,16 +32,16 @@ public class UsuarioController {
 	    return new ResponseEntity< List<Usuario> > (users, HttpStatus.OK);
 	}
 
-	@PostMapping
-	public ResponseEntity <Usuario> crearUsuario (@RequestBody Usuario user) {
-		Usuario exist = uDAO.buscarPorUsername(user.getNombreUsuario());
-	    if ( exist != null ) {
-	    	return new ResponseEntity <Usuario> (user, HttpStatus.CONFLICT);
-	    } else {
-	    	uDAO.persistir(user);
-	    	return new ResponseEntity <Usuario> (user, HttpStatus.CREATED);
-	    }		       
-    }
+//	@PostMapping
+//	public ResponseEntity <Usuario> crearUsuario (@RequestBody Usuario user) {
+//		Usuario exist = uDAO.buscarPorUsername(user.getNombreUsuario());
+//	    if ( exist != null ) {
+//	    	return new ResponseEntity <Usuario> (user, HttpStatus.CONFLICT);
+//	    } else {
+//	    	uDAO.persistir(user);
+//	    	return new ResponseEntity <Usuario> (user, HttpStatus.CREATED);
+//	    }		       
+//    }
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Usuario> getUsuario(@PathVariable("id") long id) {
