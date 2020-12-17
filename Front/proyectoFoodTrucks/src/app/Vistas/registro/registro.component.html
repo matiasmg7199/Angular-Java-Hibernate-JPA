@@ -1,1 +1,28 @@
-<p>registro works!</p>
+<div class="center-block">
+    <div class="wrapper fadeInDown" style="margin-top: 150px;">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="assets/food-truck.png" style="width: 150px; height: 150px; margin: 50px;" id="icon" alt="User Icon" />
+          </div>
+      
+          <!-- Login Form -->
+          <form [formGroup]="registroForm" (ngSubmit)="onRegistro(registroForm.value)">
+            <input type="text" id="login" class="fadeIn second" placeholder="nombre de usuario" formControlName="usuario">
+            <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
+            <input type="text" id="nombre" class="fadeIn second" placeholder="nombre" formControlName="nombre">
+            <input type="text" id="secondName" class="fadeIn third" placeholder="apellido" formControlName="apellido">
+            <input type="email" id="email" class="fadeIn third" placeholder="email" formControlName="email">
+            <select class="form-control" id="tipoCuenta">
+              <option value="">¿FoodTrucker u Organizador de Eventos?</option>
+              <option value="1">Organizador De Eventos</option>
+              <option value="2">Administrador De Food Trucks</option>
+            </select>
+            <input type="submit" class="fadeIn fourth" value="Log In">
+          </form>
+    
+        </div>
+    </div>
+    </div>
