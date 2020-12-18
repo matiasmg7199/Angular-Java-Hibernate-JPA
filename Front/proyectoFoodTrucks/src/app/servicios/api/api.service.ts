@@ -3,7 +3,8 @@ import { LoginI } from '../../modelos/login.interface';
 import { ResponseI } from '../../modelos/response.interface';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { from, Observable } from 'rxjs';
-
+import { ListaFoodTruckersI } from '../../modelos/listaFoodTrucks.interface';
+import { identifierModuleUrl } from '@angular/compiler';
 @Injectable({
   providedIn: 'root'
 })
@@ -26,4 +27,13 @@ export class ApiService {
     return this.http.post<ResponseI> (direccion, form);
   }
 
+  getAllFoodTrucks(id:string): Observable<ListaFoodTruckersI[]>{
+    let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
+    return this.http.get<ListaFoodTruckersI[]>(direccion, { headers: { 'token': "1123456" } });
+  }
+
+  agregarFoodTruck(form, id: string): Observable<ResponseI>{
+    let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
+    return this.http.post<ResponseI>(direccion, form, { headers: { 'token': "1123456" } });
+  }
 }

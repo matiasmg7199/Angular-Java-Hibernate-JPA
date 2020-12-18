@@ -26,20 +26,20 @@ public class LoginController {
 
 	@CrossOrigin(origins = "http://localhost:4200/")
 	@PostMapping
-	public ResponseEntity<String> login(@RequestHeader String username, @RequestHeader String password){
+	public ResponseEntity<Usuario> login(@RequestHeader String username, @RequestHeader String password){
 		Usuario u = uDAO.login(username, password);
 		if( u != null ) {
 			HttpHeaders header =  new HttpHeaders();
 			header.set("token", u.getId()+"123456");
 			if ( u.soyFoodTrucker() ) {
 				header.set("tipo", "FoodTrucker");
-				return new ResponseEntity<String> (header, HttpStatus.OK);
+				return new ResponseEntity<Usuario> (u, HttpStatus.OK);
 			} else if ( u.soyOrganizador() ) {
 				header.set("tipo", "Organizador");
-				return new ResponseEntity<String> (header, HttpStatus.OK);
-			} else { return new ResponseEntity<String> (header, HttpStatus.NOT_FOUND); }
+				return new ResponseEntity<Usuario> (u, HttpStatus.OK);
+			} else { return new ResponseEntity<Usuario> (u, HttpStatus.NOT_FOUND); }
 		}
-		return  new ResponseEntity<String> ("Usuario o contraseña incorrectos", HttpStatus.NOT_FOUND);
+		return  new ResponseEntity<Usuario> (u, HttpStatus.NOT_FOUND);
 	}
 	
 	

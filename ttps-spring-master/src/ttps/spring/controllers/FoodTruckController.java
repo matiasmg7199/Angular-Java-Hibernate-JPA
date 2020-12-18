@@ -39,7 +39,7 @@ public class FoodTruckController {
 	
 	
 	
-	
+	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 	@GetMapping("/{id}")
 	public ResponseEntity<List<FoodTruck>> getFoodTrucksByUserID(@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTrucker foodtrucker = ftrDAO.recuperar(id);
@@ -57,7 +57,7 @@ public class FoodTruckController {
 			  return new ResponseEntity<List<FoodTruck>>(HttpStatus.OK); }
 			
 	}
-	
+	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 	@PostMapping("/{id}")
 	public ResponseEntity<FoodTruck> createFoodTruck(@RequestBody FoodTruck unFoodTruck,@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTrucker FT = ftrDAO.recuperar(id);
@@ -93,7 +93,7 @@ public class FoodTruckController {
 		}
 		else { return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND); }
 	}
-	
+	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 	@PutMapping("/{id}")
 	public ResponseEntity<FoodTruck> modifyFoodTruck(@RequestBody FoodTruck unFoodTruck,@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTruck f = foodtruckDAO.recuperar(id);
@@ -136,7 +136,7 @@ public class FoodTruckController {
 		}
 		else { return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND); }
 	}
-	
+	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<FoodTruck> modifyFoodTruck(@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTruck f = foodtruckDAO.recuperar(id);
