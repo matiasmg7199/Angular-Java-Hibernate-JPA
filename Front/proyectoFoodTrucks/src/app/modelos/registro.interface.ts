@@ -4,4 +4,5 @@ export interface registroI{
     nombre: string;
     apellido: string;
     email: string;
+    tipoCuenta: string;
 }

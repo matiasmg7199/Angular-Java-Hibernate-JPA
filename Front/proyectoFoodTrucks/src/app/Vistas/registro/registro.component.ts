@@ -16,7 +16,8 @@ export class RegistroComponent implements OnInit {
     password : new FormControl('', Validators.required),
     nombre : new FormControl('', Validators.required),
     apellido : new FormControl('', Validators.required),
-    email: new FormControl('', Validators.required)
+    email: new FormControl('', Validators.required),
+    tipoCuenta: new FormControl('', Validators.required)
   })
 
   constructor(private api:ApiService) { }
@@ -25,8 +26,25 @@ export class RegistroComponent implements OnInit {
   }
 
   onRegistro(form: registroI){
-    this.api.registroFoodTrucker(form).subscribe(data =>{
-      console.log(data);
-    })
+    let nuevoForm = {
+        "nombreUsuario": form.usuario,
+        "contraseña": form.password,
+        "nombre": form.nombre,
+        "apellido": form.apellido,
+        "email": form.email
+    }
+    console.log(form.tipoCuenta);
+    if(form.tipoCuenta==="2"){
+      console.log("estas seleccionando ser foodtrucker");
+      this.api.registroFoodTrucker(nuevoForm).subscribe(data =>{
+        console.log(data);
+      })
+    }
+    else if(form.tipoCuenta==="1"){
+      console.log("estas seleccionando ser organizer");
+      this.api.registroOrganizer(nuevoForm).subscribe(data =>{
+        console.log(data);
+      })
+    }
   }
 }

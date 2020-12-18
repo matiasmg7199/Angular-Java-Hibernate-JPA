@@ -12,7 +12,8 @@
 	  <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
 		<input type="text" id="login" class="fadeIn second" placeholder="login" formControlName="usuario">
 		<input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
-		<input type="submit" class="fadeIn fourth" value="Log In">
+		<input type="submit" class="fadeIn fourth" value="Ingresar">
+		<a href="http://localhost:4200/registro" class="fadeIn fourth">Registrarse</a>
 	  </form>
 
 	</div>

@@ -14,15 +14,17 @@ import org.springframework.web.bind.annotation.RestController;
 import ttps.spring.clasesDAO.*;
 import ttps.spring.model.Usuario;
 
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+//@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
-@RequestMapping(value="/auth/login", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value="/login", produces = MediaType.APPLICATION_JSON_VALUE)
 
 public class LoginController {
 
 	@Autowired
 	private UsuarioDAO uDAO;
 	
+
+	@CrossOrigin(origins = "http://localhost:4200/")
 	@PostMapping
 	public ResponseEntity<String> login(@RequestHeader String username, @RequestHeader String password){
 		Usuario u = uDAO.login(username, password);
@@ -35,9 +37,9 @@ public class LoginController {
 			} else if ( u.soyOrganizador() ) {
 				header.set("tipo", "Organizador");
 				return new ResponseEntity<String> (header, HttpStatus.OK);
-			} else { return new ResponseEntity<String> (header, HttpStatus.NO_CONTENT); }
+			} else { return new ResponseEntity<String> (header, HttpStatus.NOT_FOUND); }
 		}
-		return  new ResponseEntity<String> ("Usuario o contraseña incorrectos", HttpStatus.NO_CONTENT);
+		return  new ResponseEntity<String> ("Usuario o contraseña incorrectos", HttpStatus.NOT_FOUND);
 	}
 	
 	

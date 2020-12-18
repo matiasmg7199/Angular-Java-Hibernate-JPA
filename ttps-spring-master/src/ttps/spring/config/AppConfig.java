@@ -19,10 +19,11 @@ public class AppConfig implements WebMvcConfigurer {
 	public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(new MappingJackson2HttpMessageConverter());
 	}
-	
-	@Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedOrigins("http://localhost:4200/");
 
+	//CORSMAN
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/*").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+        registry.addMapping("/*").allowedOrigins("*");
     }
 }

@@ -42,7 +42,7 @@ public class UsuarioDAOHibernateJPA extends GenericDAOHibernateJPA<Usuario> impl
 		Usuario resultado = null; 
 		String sql = " SELECT u "
 	 			   + " FROM Usuario as u"
-	 			   + " WHERE u.username = :username AND u.password = :password ";		 
+	 			   + " WHERE u.nombreUsuario = :username AND u.contraseña = :password ";		 
 		Query consulta = getEntityManager().createQuery(sql);
 		consulta.setParameter("username", username);
 		consulta.setParameter("password", password);

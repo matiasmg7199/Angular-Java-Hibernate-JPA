@@ -20,7 +20,12 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form: LoginI){
-    this.api.loginByUsername(form).subscribe(data =>{
+    let nuevoForm = {
+      "username": form.usuario,
+      "password": form.password
+  }
+    console.log(nuevoForm);
+    this.api.loginByUsername(nuevoForm).subscribe(data =>{
       console.log(data);
     })
   }
