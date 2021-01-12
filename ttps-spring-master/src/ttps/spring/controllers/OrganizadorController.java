@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ttps.spring.clasesDAO.OrganizadorDAO;
 import ttps.spring.model.Organizador;
 
-//@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
 @RequestMapping(value="/organizadores", produces = MediaType.APPLICATION_JSON_VALUE)
 public class OrganizadorController {

@@ -23,7 +23,8 @@ public class AppConfig implements WebMvcConfigurer {
 	//CORSMAN
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/*").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
-        registry.addMapping("/*").allowedOrigins("*");
+        registry.addMapping("/**").allowedMethods("HEAD", "GET", "PUT", "POST", "DELETE", "PATCH");
+        registry.addMapping("/**").allowedOrigins("*");
+        //registry.addMapping("*").allowedOrigins("*");
     }
 }

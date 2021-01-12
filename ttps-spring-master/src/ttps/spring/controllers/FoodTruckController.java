@@ -24,7 +24,7 @@ import ttps.spring.clasesDAO.FoodTruckerDAO;
 import ttps.spring.model.FoodTruck;
 import ttps.spring.model.FoodTrucker;
 import ttps.spring.model.TipoComida;
-import ttps.spring.model.Usuario;
+import ttps.spring.services.TokenServices;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
@@ -39,30 +39,32 @@ public class FoodTruckController {
 	
 	
 	
-	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+	@CrossOrigin(origins = "http://localhost:4200/")
 	@GetMapping("/{id}")
-	public ResponseEntity<List<FoodTruck>> getFoodTrucksByUserID(@PathVariable("id") long id, @RequestHeader String token ){
-		FoodTrucker foodtrucker = ftrDAO.recuperar(id);
+	public ResponseEntity<List<FoodTruck>> getFoodTrucksByUserID(@PathVariable("id") String ftrId, @RequestHeader String token ){
+		FoodTrucker foodtrucker = ftrDAO.recuperar(Long.parseLong(ftrId));
+		System.out.println("Se llama a la api listar foodtrucks");
 	    if (foodtrucker != null) {
-			if (!token.equals(foodtrucker.getId() + "123456")) {
+			if (!TokenServices.validateToken(token)) {
+				System.out.print("No se valido el token");
 				return new ResponseEntity<List<FoodTruck>>(HttpStatus.UNAUTHORIZED);
 			} else {
-				List<FoodTruck> foodTrucks = foodtruckDAO.encontrarTodosParaUsuarioID(id);
+				List<FoodTruck> foodTrucks = foodtruckDAO.encontrarTodosParaUsuarioID(Long.parseLong(ftrId));
 				if(foodTrucks.isEmpty()){
 					return new ResponseEntity<List<FoodTruck>>(HttpStatus.NO_CONTENT);
 				}	
 				return new ResponseEntity<List<FoodTruck>>(foodTrucks, HttpStatus.OK);
 		}
-	    } else {  System.out.println("!!-- No se encontro el usuario con id " + id + " --!!");
+	    } else {  System.out.println("!!-- No se encontro el usuario con id " + Long.parseLong(ftrId) + " --!!");
 			  return new ResponseEntity<List<FoodTruck>>(HttpStatus.OK); }
 			
 	}
-	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+	@CrossOrigin(origins = "http://localhost:4200/")
 	@PostMapping("/{id}")
 	public ResponseEntity<FoodTruck> createFoodTruck(@RequestBody FoodTruck unFoodTruck,@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTrucker FT = ftrDAO.recuperar(id);
 		if(FT != null) {
-			if (!token.equals( FT.getId() + "123456")) {
+			if (!TokenServices.validateToken(token)) {
 				return new ResponseEntity<FoodTruck>(HttpStatus.UNAUTHORIZED);
 			} else {
 				unFoodTruck.setFoodtrucker(FT);
@@ -93,12 +95,12 @@ public class FoodTruckController {
 		}
 		else { return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND); }
 	}
-	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+	@CrossOrigin(origins = "http://localhost:4200/")
 	@PutMapping("/{id}")
 	public ResponseEntity<FoodTruck> modifyFoodTruck(@RequestBody FoodTruck unFoodTruck,@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTruck f = foodtruckDAO.recuperar(id);
 		if(f != null) {
-			if (!token.equals( f.getFoodtrucker().getId() + "123456")) {
+			if (!TokenServices.validateToken(token)) {
 				return new ResponseEntity<FoodTruck>(HttpStatus.UNAUTHORIZED);
 			} else {
 				if (unFoodTruck.getNombre() != null) {
@@ -136,13 +138,13 @@ public class FoodTruckController {
 		}
 		else { return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND); }
 	}
-	@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+	@CrossOrigin(origins = "http://localhost:4200/")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<FoodTruck> modifyFoodTruck(@PathVariable("id") long id, @RequestHeader String token ){
 		FoodTruck f = foodtruckDAO.recuperar(id);
 		if(f != null) {
 			//Verifico el token
-			if (!token.equals( f.getFoodtrucker().getId() + "123456")) {
+			if (!TokenServices.validateToken(token)) {
 				return new ResponseEntity<FoodTruck>(HttpStatus.UNAUTHORIZED);
 			} else {
 				//Si no existe el foodtruck a eliminar

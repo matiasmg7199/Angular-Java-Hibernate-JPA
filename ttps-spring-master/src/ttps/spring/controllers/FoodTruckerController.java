@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ttps.spring.clasesDAO.FoodTruckerDAO;
 import ttps.spring.model.FoodTrucker;
 import ttps.spring.model.Usuario;
-//@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
 @RequestMapping(value="/foodtruckers", produces = MediaType.APPLICATION_JSON_VALUE)
 

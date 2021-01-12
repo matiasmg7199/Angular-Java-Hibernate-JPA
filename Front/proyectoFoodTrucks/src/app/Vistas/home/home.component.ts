@@ -22,10 +22,9 @@ export class HomeComponent implements OnInit {
   constructor(private api: ApiService) { }
 
   ngOnInit(): void {
-    let unId="1";
-    this.api.getAllFoodTrucks(unId).subscribe(data =>{
-      console.log(data);
-    })
+    this.api.getAllFoodTrucks(localStorage.getItem("userID")).subscribe(data =>{
+      console.log(data);console.log("Se intento llamar agetAllFoodtrucks");
+    }, error => console.log("No se pudo llamar a la api"))
   }
 
   onAgregarFoodTruck(form){

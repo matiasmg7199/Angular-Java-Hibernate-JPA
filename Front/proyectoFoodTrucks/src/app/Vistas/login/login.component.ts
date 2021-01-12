@@ -22,23 +22,21 @@ export class LoginComponent implements OnInit {
   constructor(private api:ApiService, private router:Router) { }
 
   ngOnInit(): void {
+    if( localStorage.getItem("token") != null && localStorage.getItem("token") != "null" ){
+      this.router.navigate(['/home']);
+    }
   }
 
+  errorCheck:Boolean=false;
+
   onLogin(form: LoginI){
-    let nuevoForm = {
-      "username": form.usuario,
-      "password": form.password
-  }
-    console.log(nuevoForm);
-    this.api.loginByUsername(nuevoForm).subscribe(data =>{
-      console.log(data);
-      let dataResponse:ResponseI=data;
-      console.log("EL USUARIO");
-      if(dataResponse.status == "ok"){
-        localStorage.setItem("token", dataResponse.result.token);
-        console.log("EL USUARIO ES CORRECTO");
-        this.router.navigate(['home']);
-      }
-    })
+    this.api.loginByUsername(form).subscribe(data => {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("status", data.status);
+        localStorage.setItem("userType", data.type);
+        localStorage.setItem("userID", data.userID);
+        localStorage.setItem("user", form.usuario);
+        this.router.navigate(['/home']);
+    }, error => this.errorCheck=true);
   }
 }

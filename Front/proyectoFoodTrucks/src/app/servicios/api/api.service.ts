@@ -12,9 +12,9 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
   
-  loginByUsername(form):Observable<ResponseI>{
+  loginByUsername(form: LoginI):Observable<any>{
     let direccion = "http://localhost:8080/ttps-spring/login";
-    return this.http.post<ResponseI> (direccion, form, { headers: { 'username': form.username, 'password': form.password } });
+    return this.http.post<any> (direccion, form, { headers: { 'username': form.usuario, 'password': form.password } });
   }
 
   registroFoodTrucker(form):Observable<ResponseI>{
@@ -29,11 +29,14 @@ export class ApiService {
 
   getAllFoodTrucks(id:string): Observable<ListaFoodTruckersI[]>{
     let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
-    return this.http.get<ListaFoodTruckersI[]>(direccion, { headers: { 'token': "1123456" } });
+    console.log(direccion);
+    return this.http.get<ListaFoodTruckersI[]>(direccion, { headers: { 'token':localStorage.getItem("token") } });
+    //return this.http.get<ListaFoodTruckersI[]>(direccion, { headers: { 'token':localStorage.getItem("token") } });
   }
 
   agregarFoodTruck(form, id: string): Observable<ResponseI>{
     let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
-    return this.http.post<ResponseI>(direccion, form, { headers: { 'token': "1123456" } });
+    return this.http.post<ResponseI>(direccion, form, { headers: { 'token':localStorage.getItem("token") } });
   }
-}
+
+} 

@@ -15,7 +15,10 @@
 		<input type="submit" class="fadeIn fourth" value="Ingresar">
 		<a href="http://localhost:4200/registro" class="fadeIn fourth">Registrarse</a>
 	  </form>
-
+	 <!-- Error -->
+		<div class="alert alert-danger" *ngIf="errorCheck">
+		<p>Usuario y/o Contraseña incorrectos</p>
+	</div> 
 	</div>
 </div>
 </div>
