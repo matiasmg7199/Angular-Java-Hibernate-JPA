@@ -56,7 +56,15 @@ public class FoodTruck {
 		this.url = url;
 		this.redesSociales = redesSociales;
 	}
-
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}

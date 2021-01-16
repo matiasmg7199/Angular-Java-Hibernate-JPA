@@ -34,9 +34,19 @@ export class ApiService {
     //return this.http.get<ListaFoodTruckersI[]>(direccion, { headers: { 'token':localStorage.getItem("token") } });
   }
 
+  getAllZonas(): Observable<String[]>{
+    let direccion = "http://localhost:8080/ttps-spring/zonas/";
+    console.log(direccion);
+    return this.http.get<String[]>(direccion);
+  }
+
   agregarFoodTruck(form, id: string): Observable<ResponseI>{
     let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
     return this.http.post<ResponseI>(direccion, form, { headers: { 'token':localStorage.getItem("token") } });
   }
 
+  eliminarFoodTruck(id:string): Observable<ResponseI>{
+    let direccion = "http://localhost:8080/ttps-spring/foodtrucks/" + id;
+    return this.http.delete<ResponseI>(direccion, { headers: { 'token':localStorage.getItem("token") } });
+  }
 } 

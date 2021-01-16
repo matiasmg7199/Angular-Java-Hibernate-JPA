@@ -1,8 +1,10 @@
 package ttps.spring.controllers;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -122,7 +124,7 @@ public class FoodTruckController {
 					ListIterator it = unFoodTruck.getComidas().listIterator();
 					//Creo un arreglo donde poder guardar las comidas
 					//Todo este mecanismo es para insertar las comidas en la tabla intermedia a su vez
-					List<TipoComida> comidas = new ArrayList();
+					Set<TipoComida> comidas = new HashSet<>();
 					while(it.hasNext()) {
 						//Tomo la comida en el nodo actual de la lista
 						TipoComida TC = (TipoComida) it.next();
@@ -130,7 +132,7 @@ public class FoodTruckController {
 						comidas.add(TC);
 					}
 					//Le asigno al foodtruck la lista de comidas
-					unFoodTruck.setComidas(comidas);
+					unFoodTruck.setComidas((List)comidas);
 				}
 				foodtruckDAO.actualizar(f);
 				return new ResponseEntity<FoodTruck>(unFoodTruck, HttpStatus.CREATED);
@@ -140,18 +142,19 @@ public class FoodTruckController {
 	}
 	@CrossOrigin(origins = "http://localhost:4200/")
 	@DeleteMapping("/{id}")
-	public ResponseEntity<FoodTruck> modifyFoodTruck(@PathVariable("id") long id, @RequestHeader String token ){
-		FoodTruck f = foodtruckDAO.recuperar(id);
+	public ResponseEntity<FoodTruck> modifyFoodTruck(@PathVariable("id") String id, @RequestHeader String token ){
+		long idConverted = Long.parseLong(id); 
+		FoodTruck f = foodtruckDAO.recuperar(idConverted);
 		if(f != null) {
 			//Verifico el token
 			if (!TokenServices.validateToken(token)) {
 				return new ResponseEntity<FoodTruck>(HttpStatus.UNAUTHORIZED);
 			} else {
 				//Si no existe el foodtruck a eliminar
-				if(!(foodtruckDAO.existe(id))) {
+				if(!(foodtruckDAO.existe(idConverted))) {
 					return new ResponseEntity<FoodTruck>(HttpStatus.NOT_FOUND);
 				}
-				foodtruckDAO.borrar(id);
+				foodtruckDAO.borrar(idConverted);
 				return new ResponseEntity<FoodTruck>(HttpStatus.NO_CONTENT);
 			}
 		}

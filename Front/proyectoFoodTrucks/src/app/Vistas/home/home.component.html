@@ -23,8 +23,7 @@
             <div class="form-group">
             <select class="form-control" id="zonaFood" formControlName="zonaFood">
               <option value="">Seleccione Zona: </option>
-              <option value="Ensenada">Ensenada</option>
-              <option value="La Plata">La plata</option>
+              <option value="{{zona.nombre}}" *ngFor="let zona of zonas">{{zona.nombre}}</option>
             </select>
            </div>
            <div class="form-group">
@@ -46,20 +45,73 @@
       </div>
     </div>
 </div>
-<div class="list-group" style="margin-left: 25%; width: 50%;">
+<div class="list-group" style="margin-left: 25%; width: 50%;" *ngFor="let ft of foodtrucks">
     <a href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="margin-top: 10px;">
         <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">Food Truck "Best Panchos"</h5>
-          <small>tipocomida</small>
+          <h5 class="mb-1">Food Truck {{ft.nombre}}</h5>
+          <small>{{ft.foodtrucker.nombre}} {{ft.foodtrucker.apellido}} | {{ft.foodtrucker.email}}</small>
         </div>
-        <p class="mb-1">"Descripcion: "</p>
-        <p class="mb-1">"Url:"</p>
-        <p class="mb-1">"Redes Sociales:"</p>
-        <p class="mb-1">"Zonas:"</p>
-        <p class="mb-1">"Comidas:"</p>
-        <a class="btn btn-warning" href="http://localhost:8080/ttps-spring/foodtrucks/5" style="margin-right: 15px;">Modificar</a>
-        <a class="btn btn-danger" href="http://localhost:8080/ttps-spring/foodtrucks/5">Eliminar</a>
+        <p class=".text-dark">Descripcion: {{ft.descripcion}}</p>
+        <p class=".text-dark">Url: {{ft.url}}</p>
+        <p class=".text-dark">Redes Sociales: {{ft.redesSociales}}</p>
+        <p class=".text-dark">Zonas: {{ft.zona.nombre}}</p>
+        <p class=".text-dark">Comidas: </p>
+        <div *ngFor="let i of ft.comidas">
+        <p class=".text-dark">{{i.nombre}}</p>
+        </div>
     </a>
+    <div style="text-align: center;">
+    <button type="button" style="margin-right: 10px;"class="btn btn-warning" data-toggle="modal" data-target="#Modal2">
+      Modificar food truck
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="modificarFoodForm" (ngSubmit)="onModificarFoodTruck(modificarFoodForm.value)">
+              <div class="form-group">
+                <input type="text" id="nombreFood" formControlName="nombreFood" value="{{ft.nombre}}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="fadeIn second" id="descripcionFood" placeholder="Ingrese Descripcion" formControlName="descripcionFood">
+              </div>
+              <div class="form-group">
+                <input type="text" id="urlFood" class="fadeIn second" placeholder="Ingrese url web" formControlName="urlFood">
+              </div>
+              <div class="form-group">
+              <select class="form-control" id="zonaFood" formControlName="zonaFood">
+                <option value="">Seleccione Zona: </option>
+                <option value="Ensenada">Ensenada</option>
+                <option value="La Plata">La plata</option>
+              </select>
+             </div>
+             <div class="form-group">
+              <select class="form-control" id="comidaFood" formControlName="comidaFood">
+                <option value="">Seleccione Comida: </option>
+                <option value="Pollo">Pollo</option>
+                <option value="Tacos">Tacos</option>
+              </select>
+             </div>
+             <div class="form-group">
+              <input type="text" id="redesFood" class="fadeIn second" placeholder="Ingrese redes sociales" formControlName="redesFood">
+            </div>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            <input type="submit" class="fadeIn fourth" value="Modificar">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a class="btn btn-danger" (click)="eliminarFood(ft.id)">Eliminar</a>
+    <hr>
+  </div>
 </div>
 
 <app-footer></app-footer>
