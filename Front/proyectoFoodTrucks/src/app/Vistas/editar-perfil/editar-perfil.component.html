@@ -1,9 +1,27 @@
 <app-header></app-header>
 
-<p>aaaaaaaaaaaaaaaaaaa</p>
-<p>aaaaaaaaaaaaaaaaaaa</p>
-<p>aaaaaaaaaaaaaaaaaaa</p>
-<p>aaaaaaaaaaaaaaaaaaa</p>
-<p>aaaaaaaaaaaaaaaaaaa</p>
+<div class="center-block">
+    <div class="wrapper fadeInDown" style="margin-top: 150px;">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+      
+          <!-- Icon -->
+          <div class="fadeIn first">
+            <img src="assets/food-truck.png" style="width: 150px; height: 150px; margin: 50px;" id="icon" alt="User Icon" />
+          </div>
+      
+          <!-- Editar perfil Form -->
+          <form [formGroup]="editarPerfilForm" (ngSubmit)="onEditar(editarPerfilForm.value)">
+            <input type="text" id="login" class="fadeIn second" placeholder="nombre de usuario" formControlName="usuario">
+            <input type="password" id="password" class="fadeIn third" placeholder="password" formControlName="password">
+            <input type="text" id="nombre" class="fadeIn second" placeholder="nombre" formControlName="nombre">
+            <input type="text" id="secondName" class="fadeIn third" placeholder="apellido" formControlName="apellido">
+            <input type="email" id="email" class="fadeIn third" placeholder="email" formControlName="email">
+            <input type="submit" class="fadeIn fourth" value="Guardar cambios">
+          </form>
+    
+        </div>
+    </div>
+</div>
 
 <app-footer></app-footer>

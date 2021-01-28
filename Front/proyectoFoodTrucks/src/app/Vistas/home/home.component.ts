@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ApiService } from '../../servicios/api/api.service';
 import { ListaFoodTruckersI } from '../../modelos/listaFoodTrucks.interface';
+import { Router } from '@angular/router'
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   foodtrucks: ListaFoodTruckersI[];
   zonas: String[];
-  constructor(private api: ApiService) { }
+  constructor(private api: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.api.getAllFoodTrucks(localStorage.getItem("userID")).subscribe(data =>{
@@ -63,14 +65,17 @@ export class HomeComponent implements OnInit {
    }
     let unId = localStorage.getItem("userID");
     this.api.agregarFoodTruck(nuevoForm, unId).subscribe(data =>{
+      this.router.navigate(['/home']);
       console.log(data);
     })
   }
   //Modificar
   eliminarFood(id){
-    this.api.eliminarFoodTruck(id).subscribe(data =>{
-      console.log(data);
-    })
+    let confirmacion = confirm("¿Estas seguro que deseas eliminar el Food Truck? Ésta opción hará que se elimine el food truck y todo lo que se relacione a él.")
+    if (confirmacion == true)
+       this.api.eliminarFoodTruck(id).subscribe(data =>{
+       console.log(data);
+       this.router.navigate(['/home']);})
   }
 }
  
